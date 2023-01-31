@@ -7,8 +7,8 @@ public class Task1 {
         plusByte = byteNumber + 1;
         minusByte = byteNumber - 1;
         timesByte = byteNumber * 3;
-        incByte = byteNumber++;
-        decByte = byteNumber--;
+        incByte = ++byteNumber;
+        decByte = --byteNumber;
         dividedByte = byteNumber / 5;
         remainByte = byteNumber % 5;
         
@@ -19,8 +19,8 @@ public class Task1 {
         plusShort = shortNumber + 1;
         minusShort = shortNumber - 1;
         timesShort = shortNumber * 3;
-        incShort = shortNumber++;
-        decShort = shortNumber--;
+        incShort = ++shortNumber;
+        decShort = --shortNumber;
         dividedShort = shortNumber / 5;
         remainShort = shortNumber % 5;
         
@@ -29,8 +29,8 @@ public class Task1 {
         plusInt = intNumber + 1;
         minusInt = intNumber - 1;
         timesInt = intNumber * 3;
-        incInt = intNumber++;
-        decInt = intNumber--;
+        incInt = ++intNumber;
+        decInt = --intNumber;
         dividedInt = intNumber / 5;
         remainInt = intNumber % 5;
         
@@ -39,8 +39,8 @@ public class Task1 {
         plusLong = longNumber + 1;
         minusLong = longNumber - 1;
         timesLong = longNumber * 3;
-        incLong = longNumber++;
-        decLong = longNumber--;
+        incLong = ++longNumber;
+        decLong = --longNumber;
         dividedLong = longNumber / 5;
         remainLong = longNumber % 5;
         
@@ -49,8 +49,8 @@ public class Task1 {
         plusFloat = floatNumber + 1f;
         minusFloat = floatNumber - 1f;
         timesFloat = floatNumber * 3f;
-        incFloat = floatNumber++;
-        decFloat = floatNumber--;
+        incFloat = ++floatNumber;
+        decFloat = --floatNumber;
         dividedFloat = floatNumber / 5f;
         remainFloat = floatNumber % 5f;
         
@@ -59,8 +59,8 @@ public class Task1 {
         plusDouble = doubleNumber + 1d;
         minusDouble = doubleNumber - 1d;
         timesDouble = doubleNumber * 3d;
-        incDouble = doubleNumber++;
-        decDouble = doubleNumber--;
+        incDouble = ++doubleNumber;
+        decDouble = --doubleNumber;
         dividedDouble = doubleNumber / 5d;
         remainDouble = doubleNumber % 5d;
         
