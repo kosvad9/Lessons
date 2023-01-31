@@ -67,6 +67,7 @@ public class Task1 {
         char charSymbol = 'V';
         boolean bool = true;
         String str = "Hello";
+
         System.out.println(byteNumber);
         System.out.println(shortNumber);
         System.out.println(intNumber);
