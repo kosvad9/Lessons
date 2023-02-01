@@ -5,6 +5,7 @@ public class Task2 {
         final String BANK = "Bank", HEALTH = "Health", TRANSPORT = "Transport";
         int profit = 350945;
         int tax;
+        double total;
 
         String industry = HEALTH;
         switch (industry){
@@ -28,6 +29,7 @@ public class Task2 {
             }
             default: tax = 0;
         }
-        System.out.println("Налог равен "+tax+"%");
+        total = profit * tax / 100d;
+        System.out.println("Налог на сумму "+profit+" для отрасли "+industry+" составляет "+total+". Это составляет "+tax+" процентов");
     }
 }
