@@ -13,5 +13,6 @@ public class Task1 {
                 System.out.printf("Число %d - четное\n",elem);
             else
                 System.out.printf("Число %d - нечетное\n",elem);
+        scanner.close();
     }
 }
