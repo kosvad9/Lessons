@@ -13,4 +13,7 @@ public class Bathroom {
     public Bathroom(String name){
         this(name,"");
     }
+    public String getName(){
+        return name;
+    }
 }

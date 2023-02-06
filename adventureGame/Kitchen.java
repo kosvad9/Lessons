@@ -11,4 +11,7 @@ public class Kitchen {
     public Kitchen(String name){
         this(name,"");
     }
+    public String getName(){
+        return name;
+    }
 }

@@ -14,4 +14,7 @@ public class Bedroom {
     public Bedroom(String name){
         this(name,"");
     }
+    public String getName(){
+        return name;
+    }
 }
