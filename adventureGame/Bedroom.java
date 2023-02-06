@@ -7,4 +7,11 @@ public class Bedroom {
                                         new Item("Тумбочка","Деревянная тумбочка у кровати"),
                                         new Item("Кровать","Незаправленная кровать из Икеи")
                                         };
+    public Bedroom(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+    public Bedroom(String name){
+        this(name,"");
+    }
 }
