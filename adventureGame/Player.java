@@ -32,6 +32,7 @@ public class Player {
         for (Item item:inventory)
             if (item != null)
                 System.out.printf("%s, ", item.getName());
+        System.out.println("");
     }
 
     public void interact(Scanner sc){
@@ -47,13 +48,13 @@ public class Player {
         if (currRoomItems[choice] instanceof InsideItem){
             InsideItem ii = (InsideItem) currRoomItems[choice];
             ii.use();
-            System.out.println("Желаете заглянуть внутрь?\n1. Да\n2. Нет");
+            System.out.println("Желаете заглянуть внутрь?\n1. Да\n2. Нет\n");
             choice = Game.input(sc, 1, 3);
             if (choice == 2) return;
             Item inItem = ii.getItem();
             if (inItem == null) System.out.println("Пусто");
             else{
-                System.out.printf("Есть предмет \"%s\". Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего",inItem.getName());
+                System.out.printf("Есть предмет \"%s\". Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего\n",inItem.getName());
                 choice = Game.input(sc,1,4);
                 if (choice == 1) addItem(inItem);
                 if (choice == 2) {
@@ -62,7 +63,7 @@ public class Player {
                 }
             }
         } else if (currRoomItems[choice] instanceof Collectible) {
-            System.out.print("Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего");
+            System.out.print("Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего\n");
             choice = Game.input(sc,1,4);
             if (choice == 1) addItem(currRoomItems[choice]);
             if (choice == 2) {
