@@ -17,6 +17,6 @@ public class Note extends Item implements Collectible, Useful {
 
     @Override
     public void use() {
-        System.out.printf("Текст из записки: \"%s\".", text);
+        System.out.printf("Текст из записки: \"%s\".\n", text);
     }
 }

@@ -10,6 +10,6 @@ public class Furniture extends Item implements Useful {
 
     @Override
     public void use() {
-        System.out.printf("Просто %s", description.toLowerCase());
+        System.out.printf("Просто %s\n", description.toLowerCase());
     }
 }

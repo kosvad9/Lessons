@@ -11,7 +11,7 @@ public class Drawer extends Furniture implements InsideItem {
     }
     @Override
     public void use() {
-        System.out.printf("%s. %s. Можно заглянуть внутрь)", name, description);
+        System.out.printf("%s. %s. Можно заглянуть внутрь)\n", name, description);
     }
 
     @Override
