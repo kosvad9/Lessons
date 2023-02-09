@@ -54,7 +54,7 @@ public class Game {
         System.out.println("Выберите действие:");
         System.out.println("1. Перейти в другую комнату");
         System.out.println("2. Показать инвентарь");
-        System.out.println("3. Показать предметы");
+        System.out.println("3. Показать предметы в комнате");
         System.out.println("0. Выход");
         return input(sc,0,4);
     }
