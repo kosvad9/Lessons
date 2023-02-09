@@ -1,9 +1,11 @@
 package adventureGame;
 
+import adventureGame.rooms.*;
+
 import java.util.Scanner;
 
 public class Game {
-    static boolean isGameFinished = false;
+    public static boolean isGameFinished = false;
     Bathroom bathroom = new Bathroom("Ванная комната", "Обычный совмещенный санузел");
     Bedroom bedroom = new Bedroom("Спальня", "Просторная спальня с двуспальной кроватью");
     Kitchen kitchen = new Kitchen("Кухня", "Большая кухня с совмещенной столовой");
@@ -32,32 +34,34 @@ public class Game {
                     player.showItems();
                     break;
                 }
+                case 3: {
+                    player.interact(sc);
+                    break;
+                }
             }
         }
     }
 
-    public int showMenu(Scanner sc){
-        System.out.println("Выберите действие:");
-        System.out.println("1. Перейти в другую комнату");
-        System.out.println("2. Показать инвентарь");
-        System.out.println("0. Выход");
-        sc.reset();
+    public static int input(Scanner sc, int min, int max){
         int choice = sc.nextInt();
-        while(choice < 0 || choice > 2){
+        while(choice < min || choice >= max){
             System.out.print("Неверный ввод. Повторите попытку: ");
             choice = sc.nextInt();
         }
         return choice;
     }
+    public int showMenu(Scanner sc){
+        System.out.println("Выберите действие:");
+        System.out.println("1. Перейти в другую комнату");
+        System.out.println("2. Показать инвентарь");
+        System.out.println("3. Показать предметы");
+        System.out.println("0. Выход");
+        return input(sc,0,4);
+    }
     public int showRooms(Scanner sc){
         System.out.println("Выберите комнату:");
         for (int i = 0; i < rooms.length; i++)
-            System.out.printf("%d. %s\n",    i,  rooms[i].name);
-        int choice = sc.nextInt();
-        while(choice < 0 || choice >= rooms.length){
-            System.out.print("Неверный ввод. Повторите попытку: ");
-            choice = sc.nextInt();
-        }
-        return choice;
+            System.out.printf("%d. %s\n",    i,  rooms[i].getName());
+        return input(sc,0,rooms.length);
     }
 }
