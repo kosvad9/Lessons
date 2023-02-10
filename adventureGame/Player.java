@@ -62,6 +62,7 @@ public class Player {
                 choice = Game.input(sc,1,4);
                 if (choice == 1) {
                     addItem(inItem);
+                    //после того как забрали удалим предмет из помещения
                     ii.clearItemLink();
                 }
                 if (choice == 2) {
