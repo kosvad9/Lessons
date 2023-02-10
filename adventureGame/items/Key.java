@@ -9,6 +9,6 @@ public class Key extends Item implements Collectible, Useful {
 
     @Override
     public void use() {
-        if (name.compareToIgnoreCase("стринный ключ") == 0) Game.isGameFinished = true;
+        if (name.compareToIgnoreCase("старинный ключ") == 0) Game.isGameFinished = true;
     }
 }
