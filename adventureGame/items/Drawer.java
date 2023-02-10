@@ -4,7 +4,7 @@ import adventureGame.Collectible;
 import adventureGame.InsideItem;
 
 public class Drawer extends Furniture implements InsideItem {
-    Collectible item;
+    private Collectible item;
     public Drawer(String name, String description, Collectible item){
         super(name,description);
         this.item = item;
@@ -15,7 +15,11 @@ public class Drawer extends Furniture implements InsideItem {
     }
 
     @Override
-    public Item getItem(){
-        return (Item)item;
+    public Item getItem() {
+        return (Item) item;
+    }
+
+    public void clearItemLink() {
+        item = null;
     }
 }

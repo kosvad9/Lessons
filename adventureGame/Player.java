@@ -27,12 +27,16 @@ public class Player {
             else System.out.println("Вы уже находитесь в выбранной комнате");
     }
 
-    public void showItems(){
-        System.out.println("В инвентаре: ");
-        for (Item item:inventory)
-            if (item != null)
-                System.out.printf("%s, ", item.getName());
-        System.out.println("");
+    public void showItems(Scanner sc){
+        System.out.println("Предметы инвентаре (выберите для взаимодействия): ");
+        for (int i = 0; i < inventory.length; i++)
+            if (inventory[i] != null)
+                System.out.printf("%d. %s\n",    i,  inventory[i].getName());
+        System.out.printf("%d. Отмена\n",    inventory.length);
+        int choice = Game.input(sc, 0, inventory.length);
+        if (choice == inventory.length) return;
+        if (inventory[choice] instanceof Useful)
+            ((Useful) inventory[choice]).use();
     }
 
     public void interact(Scanner sc){
@@ -40,45 +44,54 @@ public class Player {
             System.out.println("Нужно перейти в какую-нибудь комнату.");
             return;
         }
-        Item[] currRoomItems = currentRoom.getItems();
-        System.out.println("В текущей комнате: ");
-        for (int i = 0; i < currRoomItems.length; i++)
-            System.out.printf("%d. %s\n",    i,  currRoomItems[i].getName());
-        int choice = Game.input(sc, 0, currRoomItems.length);
-        if (currRoomItems[choice] instanceof InsideItem){
-            InsideItem ii = (InsideItem) currRoomItems[choice];
+        Item currRoomItem = currentRoom.printItems(sc);
+        if (currRoomItem == null) return;
+        int choice;
+        //случай если предмет содержит в себе еще один предмет
+        if (currRoomItem instanceof InsideItem){
+            InsideItem ii = (InsideItem) currRoomItem;
             ii.use();
             System.out.println("Желаете заглянуть внутрь?\n1. Да\n2. Нет\n");
             choice = Game.input(sc, 1, 3);
             if (choice == 2) return;
+            //получим ссылку на предмет внутри
             Item inItem = ii.getItem();
             if (inItem == null) System.out.println("Пусто");
             else{
                 System.out.printf("Есть предмет \"%s\". Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего\n",inItem.getName());
                 choice = Game.input(sc,1,4);
-                if (choice == 1) addItem(inItem);
+                if (choice == 1) {
+                    addItem(inItem);
+                    ii.clearItemLink();
+                }
                 if (choice == 2) {
                     Useful useItem = (Useful)inItem;
                     useItem.use();
                 }
             }
-        } else if (currRoomItems[choice] instanceof Collectible) {
+        } else if (currRoomItem instanceof Collectible) {
             System.out.print("Что сделать с предметом?\n1. В инвентарь\n2. Использовать\n3. Ничего\n");
             choice = Game.input(sc,1,4);
-            if (choice == 1) addItem(currRoomItems[choice]);
+            if (choice == 1) {
+                addItem(currRoomItem);
+                //после того как забрали удалим предмет из помещения
+                currentRoom.deleteItem(currentRoom.getItemIndex(currRoomItem));
+            }
             if (choice == 2) {
-                Useful useItem = (Useful)currRoomItems[choice];
+                Useful useItem = (Useful)currRoomItem;
                 useItem.use();
         }
     }
         else {
-            Useful useItem = (Useful)currRoomItems[choice];
+            Useful useItem = (Useful)currRoomItem;
             useItem.use();
         }
     }
     private void addItem(Item item){
         if (inventoryFree > 0)
-            inventory[inventory.length-inventoryFree] = item;
+            inventory[inventory.length-inventoryFree--] = item;
     }
+
+
 
 }

@@ -31,7 +31,7 @@ public class Game {
                     break;
                 }
                 case 2: {
-                    player.showItems();
+                    player.showItems(sc);
                     break;
                 }
                 case 3: {
