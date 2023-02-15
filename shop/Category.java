@@ -1,11 +1,11 @@
 package shop;
 
-public enum Categories {
+public enum Category {
     ELECTRONICS("Электроника"), FURNITURE("Мебель"), ACCESSORIES("Аксессуары");
 
     private String nameRus;
 
-    Categories(String nameRus){
+    Category(String nameRus){
         this.nameRus = nameRus;
     }
 
