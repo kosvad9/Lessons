@@ -1,7 +1,7 @@
 package shop;
 
 public enum MenuItems {
-    SHOWPRODUCTS("Показать все товары"), ADDPRODUCT("Добавить товар");
+    SHOWPRODUCTS("Показать все товары"), ADDPRODUCT("Добавить товар"), EXIT("Выход");
 
     private String descriprion;
     MenuItems(String description){

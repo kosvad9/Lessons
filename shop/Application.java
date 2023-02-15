@@ -19,8 +19,19 @@ public class Application {
                     case SHOWPRODUCTS -> {
                         break;
                     }
+                    case EXIT -> {return;}
                 }
             //}
+        }
+    }
+
+    private void showProducts(){
+        System.out.println("В наличии следующие товары:");
+        for (int i = 0; i < products.length; i++){
+            System.out.printf("\n%d. %s\n",i,products[i].getName());
+            System.out.printf("\tКатегория: \n",i,products[i].getCategory());
+            System.out.printf("\tОписание: \n",i,products[i].getDescription());
+            System.out.printf("\tЦена: \n",i,products[i].getPrice());
         }
     }
 }
