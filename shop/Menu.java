@@ -3,8 +3,8 @@ package shop;
 import java.util.InputMismatchException;
 
 public class Menu {
-    public MenuItems printMenu(){
-        MenuItems[] mi = MenuItems.values();
+    public MenuItem printMenu(){
+        MenuItem[] mi = MenuItem.values();
         System.out.println("Выберите действие:");
         for (int i = 0; i < mi.length; i++){
             System.out.printf("\t%d. %s;\n",i,mi[i].getDescriprion());
@@ -12,10 +12,10 @@ public class Menu {
         return choiceMenu();
     }
 
-    private MenuItems choiceMenu(){
+    private MenuItem choiceMenu(){
         while(true){
             try{
-                MenuItems choiceItem = MenuItems.values()[Application.sc.nextInt()];
+                MenuItem choiceItem = MenuItem.values()[Application.sc.nextInt()];
                 return choiceItem;
             }catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Выбран несуществующий пункт меню! Повторите попытку.");
