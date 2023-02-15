@@ -30,6 +30,7 @@ public class Menu {
 
     public Product createProduct(){
         try{
+            Application.sc.nextLine();
             System.out.print("Введите название: ");
             String name = Application.sc.nextLine();
             System.out.print("Введите описание: ");

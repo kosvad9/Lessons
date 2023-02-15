@@ -38,6 +38,7 @@ public class Application {
     private void showProducts(){
         System.out.println("В наличии следующие товары:");
         for (int i = 0; i < products.length; i++){
+            if (products[i] == null) continue;
             System.out.printf("\n%d. %s\n",i,products[i].getName());
             System.out.printf("\tКатегория: %s\n",products[i].getCategory());
             System.out.printf("\tОписание: %s\n",products[i].getDescription());
@@ -48,7 +49,8 @@ public class Application {
 
     private void addProduct(Product product){
         try{
-                products[products.length-freeSpace--] = product;
+                products[products.length-freeSpace] = product;
+                freeSpace--;
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Закончилось место для товара.");
         }catch (Exception e){
