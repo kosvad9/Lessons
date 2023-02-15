@@ -1,6 +1,5 @@
 package shop;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Application {
@@ -21,13 +20,11 @@ public class Application {
                 switch (menu.printMenu()){
                     case SHOWPRODUCTS -> {
                         app.showProducts();
-                        break;
                     }
                     case CREATEPRODUCT -> {
                         if (app.freeSpace > 0)
                             app.addProduct(menu.createProduct());
                         else System.out.println("Закончилось место для товара.");
-                        break;
                     }
                     case EXIT -> {return;}
                 }
@@ -42,7 +39,7 @@ public class Application {
             System.out.printf("\n%d. %s\n",i,products[i].getName());
             System.out.printf("\tКатегория: %s\n",products[i].getCategory());
             System.out.printf("\tОписание: %s\n",products[i].getDescription());
-            System.out.printf("\tЦена: %s\n",products[i].getPrice());
+            System.out.printf("\tЦена: $ %.2f\n",products[i].getPrice());
         }
         System.out.println("");
     }
