@@ -18,9 +18,7 @@ public class Application {
         while (true){
             //try{
                 switch (menu.printMenu()){
-                    case SHOWPRODUCTS -> {
-                        app.showProducts();
-                    }
+                    case SHOWPRODUCTS -> app.showProducts();
                     case CREATEPRODUCT -> {
                         if (app.freeSpace > 0)
                             app.addProduct(menu.createProduct());
@@ -41,7 +39,7 @@ public class Application {
             System.out.printf("\tОписание: %s\n",products[i].getDescription());
             System.out.printf("\tЦена: $ %.2f\n",products[i].getPrice());
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private void addProduct(Product product){
