@@ -13,4 +13,12 @@ public enum Category {
     public String toString(){
         return nameRus;
     }
+
+    public static Category defineCategory(String str){
+        for(Category category : Category.values()){
+            if (category.nameRus.compareToIgnoreCase(str) == 0)
+                return category;
+        }
+        return UNDEFINED;
+    }
 }

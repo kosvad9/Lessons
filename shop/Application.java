@@ -7,7 +7,6 @@ public class Application {
 
     private Product[] products;
 
-    private int freeSpace = 6;
     public static void main(String[] args) {
         Application app = new Application();
         app.products = FileUtil.readProducts();
@@ -18,9 +17,8 @@ public class Application {
                 switch (menu.printMenu()){
                     case SHOWPRODUCTS -> app.showProducts();
                     case CREATEPRODUCT -> {
-                        if (app.freeSpace > 0)
                             app.addProduct(menu.createProduct());
-                        else System.out.println("Закончилось место для товара.");
+                            app.products = FileUtil.readProducts();
                     }
                     case EXIT -> {return;}
                 }
@@ -42,9 +40,8 @@ public class Application {
 
     private void addProduct(Product product){
         try{
-                products[products.length-freeSpace] = product;
-                freeSpace--;
-                FileUtil.saveProducts(products);
+            products[products.length-1] = product;
+            FileUtil.saveProducts(products);
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Закончилось место для товара.");
         }catch (Exception e){

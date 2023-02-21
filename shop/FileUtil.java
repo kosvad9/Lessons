@@ -1,9 +1,7 @@
 package shop;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.stream.Stream;
 
 public class FileUtil {
@@ -36,12 +34,7 @@ public class FileUtil {
             String name = params[0];
             String description = params[1];
             Double price = Double.parseDouble(params[2]);
-            Category category;
-            try {
-                category = Category.valueOf(params[3]);
-            }catch (IllegalArgumentException e){
-                category = Category.UNDEFINED;
-            }
+            Category category = Category.defineCategory(params[3]);
             return new Product(name,description,price,category);
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Произошла ошибка парсинга строки "+e);
@@ -57,8 +50,8 @@ public class FileUtil {
                 BufferedWriter bufWriter = new BufferedWriter(writer)){
             for(Product product : products){
                 if (product == null) continue;
-                bufWriter.write(String.format("%s;%s;%.2f;%s\n",product.getName(),product.getDescription(),
-                                                              product.getPrice(),product.getCategory()));
+                bufWriter.write(String.format("%s%s%s%s\n",product.getName()+separator,product.getDescription()+separator,
+                                                              product.getPrice()+separator,product.getCategory()+separator));
             }
         }catch (FileNotFoundException e){
             System.out.println("Файл не найден "+e);
