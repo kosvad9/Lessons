@@ -46,8 +46,7 @@ public class FileUtil {
     }
 
     public static void saveProducts(Product[] products) {
-        try (OutputStream outputStream = new FileOutputStream(filePath);
-                Writer writer = new OutputStreamWriter(outputStream);
+        try (Writer writer = new FileWriter(filePath);
                 BufferedWriter bufWriter = new BufferedWriter(writer)){
             for(Product product : products){
                 if (product == null) continue;
