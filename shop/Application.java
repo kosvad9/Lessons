@@ -5,15 +5,13 @@ import java.util.Scanner;
 public class Application {
     public static Scanner sc = new Scanner(System.in);
 
-    private Product[] products = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",899.99,Category.ELECTRONICS),
-            new Product("Телевизор","Samsung",754.99,Category.ELECTRONICS),
-            new Product("Чехол","Чехол для смартфона Apple Iphone 14",3.00,Category.ACCESSORIES),
-            new Product("Кровать","Двухместная кровать",120.40,Category.FURNITURE),
-            null, null, null, null, null, null};
+    private Product[] products;
 
     private int freeSpace = 6;
     public static void main(String[] args) {
         Application app = new Application();
+        app.products = FileUtil.readProducts();
+        //FileUtil.saveProducts(FileUtil.defaultProducts);
         Menu menu = new Menu();
         while (true){
             //try{
@@ -46,6 +44,7 @@ public class Application {
         try{
                 products[products.length-freeSpace] = product;
                 freeSpace--;
+                FileUtil.saveProducts(products);
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Закончилось место для товара.");
         }catch (Exception e){
