@@ -13,7 +13,10 @@ public class FileUtil {
             new Product("Кровать","Двухместная кровать",120.40,Category.FURNITURE), null};
     public static Product[] readProducts(){
         Path path = Paths.get(filePath);
-        if (!Files.exists(path)) return defaultProducts;
+        if (!Files.exists(path)) {
+            System.out.println("Файл с данными не найден! Загружены данные по-умолчанию");
+            return defaultProducts;
+        }
         try {
             Stream<String> lines = Files.lines(path);
             Object[] stringsProduct = lines.toArray();
