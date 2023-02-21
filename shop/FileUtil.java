@@ -18,8 +18,7 @@ public class FileUtil {
             return defaultProducts;
         }
         try {
-            Stream<String> lines = Files.lines(path);
-            Object[] stringsProduct = lines.toArray();
+            Object[] stringsProduct = Files.lines(path).toArray();
             Product[] products = new Product[stringsProduct.length+1];
             for (int i = 0; i < stringsProduct.length; i++)
                 products[i] = parseProductFromCSV((String) stringsProduct[i]);
