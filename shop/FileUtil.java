@@ -10,8 +10,7 @@ public class FileUtil {
     private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",899.99,Category.ELECTRONICS),
             new Product("Телевизор","Samsung",754.99,Category.ELECTRONICS),
             new Product("Чехол","Чехол для смартфона Apple Iphone 14",3.00,Category.ACCESSORIES),
-            new Product("Кровать","Двухместная кровать",120.40,Category.FURNITURE),
-            null, null, null, null, null, null};
+            new Product("Кровать","Двухместная кровать",120.40,Category.FURNITURE), null};
     public static Product[] readProducts(){
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) return defaultProducts;
