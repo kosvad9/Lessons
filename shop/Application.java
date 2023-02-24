@@ -7,6 +7,8 @@ public class Application {
 
     private Product[] products;
 
+    private LogEntry[] logs;
+
     public static void main(String[] args) {
         Application app = new Application();
         app.products = FileUtil.readProducts();
