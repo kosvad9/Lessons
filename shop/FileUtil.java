@@ -1,16 +1,18 @@
 package shop;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.nio.file.*;
+import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 public class FileUtil {
     private static String filePath = "./shop/products.csv";
     private static String separator = ";";
-    private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",899.99,Category.ELECTRONICS),
-            new Product("Телевизор","Samsung",754.99,Category.ELECTRONICS),
-            new Product("Чехол","Чехол для смартфона Apple Iphone 14",3.00,Category.ACCESSORIES),
-            new Product("Кровать","Двухместная кровать",120.40,Category.FURNITURE), null};
+    private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",new BigDecimal(899.99),Category.ELECTRONICS, LocalDateTime.now()),
+            new Product("Телевизор","Samsung",new BigDecimal(754.99),Category.ELECTRONICS, LocalDateTime.now()),
+            new Product("Чехол","Чехол для смартфона Apple Iphone 14",new BigDecimal(3.00),Category.ACCESSORIES, LocalDateTime.now()),
+            new Product("Кровать","Двухместная кровать",new BigDecimal(120.40),Category.FURNITURE, LocalDateTime.now()), null};
     public static Product[] readProducts(){
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
@@ -34,9 +36,10 @@ public class FileUtil {
             String[] params = str.split(separator);
             String name = params[0];
             String description = params[1];
-            Double price = Double.parseDouble(params[2]);
+            BigDecimal price = new BigDecimal(params[2]);
             Category category = Category.defineCategory(params[3]);
-            return new Product(name,description,price,category);
+            LocalDateTime dateAdd = LocalDateTime.parse(params[4]);
+            return new Product(name,description,price,category,dateAdd);
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Произошла ошибка парсинга строки "+e);
         }catch (Exception e){
@@ -50,8 +53,9 @@ public class FileUtil {
                 BufferedWriter bufWriter = new BufferedWriter(writer)){
             for(Product product : products){
                 if (product == null) continue;
-                bufWriter.write(String.format("%s%s%s%s\n",product.getName()+separator,product.getDescription()+separator,
-                                                              product.getPrice()+separator,product.getCategory()+separator));
+                bufWriter.write(String.format("%s%s%s%s%s\n",product.getName()+separator,product.getDescription()+separator,
+                                                              product.getPrice()+separator,product.getCategory()+separator,
+                                                                product.getDateAdd()+separator));
             }
         }catch (FileNotFoundException e){
             System.out.println("Файл не найден "+e);

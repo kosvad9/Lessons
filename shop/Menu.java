@@ -1,5 +1,7 @@
 package shop;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 
 public class Menu {
@@ -36,9 +38,9 @@ public class Menu {
             System.out.print("Введите описание: ");
             String description = Application.sc.nextLine();
             System.out.print("Укажите цену: ");
-            double price = Application.sc.nextDouble();
+            BigDecimal price = Application.sc.nextBigDecimal();
             Category choiceCategory= printCategories();
-            return new Product(name,description,price,choiceCategory);
+            return new Product(name,description,price,choiceCategory, LocalDateTime.now());
         }catch (InputMismatchException e){
             System.out.println("Введены некорректные данные!");
             Application.sc.nextLine();
