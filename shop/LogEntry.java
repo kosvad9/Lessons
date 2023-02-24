@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class LogEntry {
-    private String nameProduct;
-    private Category categoryProduct;
-    private BigDecimal price;
-    private LocalDateTime dateOfSale;
+    public final String nameProduct;
+    public final Category categoryProduct;
+    public final BigDecimal price;
+    public final LocalDateTime dateOfSale;
 
     public LogEntry(String nameProduct, Category categoryProduct, BigDecimal price, LocalDateTime dateOfSale){
         this.nameProduct = nameProduct;
