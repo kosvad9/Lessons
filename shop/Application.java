@@ -64,15 +64,15 @@ public class Application {
 
     private void buyProduct(){
         showProducts();
-        System.out.printf("%d. %s\n",products.length,"Отмена");
+        System.out.printf("%d. %s\n",products.length-1,"Отмена");
         System.out.print("Выберите товар для покупки: ");
         try {
             int i = sc.nextInt();
-            while (i < 0 || i > products.length){
+            while (i < 0 || i >= products.length){
                 System.out.print("Повторите попытку: ");
                 i = sc.nextInt();
             }
-            if (i == products.length) return;
+            if (i == products.length-1) return;
             logs[logs.length-1] = new LogEntry(products[i].getName(),products[i].getCategory(),products[i].getPrice(), LocalDateTime.now());
             products[i] = null;
             FileUtil.saveLogs(logs);
