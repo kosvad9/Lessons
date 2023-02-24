@@ -1,6 +1,7 @@
 package shop;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class Application {
                         app.products = FileUtil.readProducts();
                         app.logs = FileUtil.readLogs();
                     }
+                    case SHOWLOGS -> app.showLogs();
                     case EXIT -> {return;}
                 }
             //}
@@ -44,6 +46,7 @@ public class Application {
             System.out.printf("\tКатегория: %s\n",products[i].getCategory());
             System.out.printf("\tОписание: %s\n",products[i].getDescription());
             System.out.printf("\tЦена: $ %.2f\n",products[i].getPrice());
+            System.out.printf("\tДата добавления: %s\n",products[i].getDateAdd().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
         }
         System.out.println();
     }
@@ -81,5 +84,17 @@ public class Application {
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Выход за пределы массива!");
         }
+    }
+
+    private void showLogs(){
+        System.out.println("История продаж:");
+        for (int i = 0; i < logs.length; i++){
+            if (logs[i] == null) continue;
+            System.out.printf("\n%d. %s\n",i,logs[i].nameProduct);
+            System.out.printf("\tКатегория: %s\n",logs[i].categoryProduct);
+            System.out.printf("\tЦена продажи: $ %.2f\n",logs[i].price);
+            System.out.printf("\tДата продажи: %s\n",logs[i].dateOfSale.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
+        }
+        System.out.println();
     }
 }

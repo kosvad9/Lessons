@@ -11,10 +11,10 @@ public class FileUtil {
 
     private static String filePathLogs = "./shop/logs.csv";
     private static String separator = ";";
-    private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",new BigDecimal(899.99),Category.ELECTRONICS, LocalDateTime.now()),
-            new Product("Телевизор","Samsung",new BigDecimal(754.99),Category.ELECTRONICS, LocalDateTime.now()),
-            new Product("Чехол","Чехол для смартфона Apple Iphone 14",new BigDecimal(3.00),Category.ACCESSORIES, LocalDateTime.now()),
-            new Product("Кровать","Двухместная кровать",new BigDecimal(120.40),Category.FURNITURE, LocalDateTime.now()), null};
+    private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",new BigDecimal("899.99"),Category.ELECTRONICS, LocalDateTime.now()),
+            new Product("Телевизор","Samsung",new BigDecimal("754.99"),Category.ELECTRONICS, LocalDateTime.now()),
+            new Product("Чехол","Чехол для смартфона Apple Iphone 14",new BigDecimal("3.00"),Category.ACCESSORIES, LocalDateTime.now()),
+            new Product("Кровать","Двухместная кровать",new BigDecimal("120.40"),Category.FURNITURE, LocalDateTime.now()), null};
     public static Product[] readProducts(){
         Path path = Paths.get(filePathProducts);
         if (!Files.exists(path)) {
