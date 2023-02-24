@@ -1,5 +1,7 @@
 package shop;
 
+import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Application {
@@ -12,6 +14,7 @@ public class Application {
     public static void main(String[] args) {
         Application app = new Application();
         app.products = FileUtil.readProducts();
+        app.logs = FileUtil.readLogs();
         //FileUtil.saveProducts(FileUtil.defaultProducts);
         Menu menu = new Menu();
         while (true){
@@ -21,6 +24,11 @@ public class Application {
                     case CREATEPRODUCT -> {
                             app.addProduct(menu.createProduct());
                             app.products = FileUtil.readProducts();
+                    }
+                    case BUYPRODUCT -> {
+                        app.buyProduct();
+                        app.products = FileUtil.readProducts();
+                        app.logs = FileUtil.readLogs();
                     }
                     case EXIT -> {return;}
                 }
@@ -48,6 +56,30 @@ public class Application {
             System.out.println("Закончилось место для товара.");
         }catch (Exception e){
             System.out.println("Возникла ошибка "+e);
+        }
+    }
+
+    private void buyProduct(){
+        showProducts();
+        System.out.printf("%d. %s\n",products.length,"Отмена");
+        System.out.print("Выберите товар для покупки: ");
+        try {
+            int i = sc.nextInt();
+            while (i < 0 || i > products.length){
+                System.out.print("Повторите попытку: ");
+                i = sc.nextInt();
+            }
+            if (i == products.length) return;
+            logs[logs.length-1] = new LogEntry(products[i].getName(),products[i].getCategory(),products[i].getPrice(), LocalDateTime.now());
+            products[i] = null;
+            FileUtil.saveLogs(logs);
+            FileUtil.saveProducts(products);
+        }catch (InputMismatchException e){
+            System.out.println("Введены некорректные данные!");
+        }catch (NullPointerException e){
+            System.out.println("Ошибка чтения данных из массива о товаре!");
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Выход за пределы массива!");
         }
     }
 }
