@@ -7,14 +7,15 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 public class FileUtil {
-    private static String filePathProducts = "./shop/products.csv";
+    private final static String filePathProducts = "./shop/products.csv";
 
-    private static String filePathLogs = "./shop/logs.csv";
-    private static String separator = ";";
+    private final static String filePathLogs = "./shop/logs.csv";
+    private final static String separator = ";";
     private static Product[] defaultProducts = new Product[]{new Product("Смартфон","Apple Iphone 14 128GB",new BigDecimal("899.99"),Category.ELECTRONICS, LocalDateTime.now()),
             new Product("Телевизор","Samsung",new BigDecimal("754.99"),Category.ELECTRONICS, LocalDateTime.now()),
             new Product("Чехол","Чехол для смартфона Apple Iphone 14",new BigDecimal("3.00"),Category.ACCESSORIES, LocalDateTime.now()),
             new Product("Кровать","Двухместная кровать",new BigDecimal("120.40"),Category.FURNITURE, LocalDateTime.now()), null};
+
     public static Product[] readProducts(){
         Path path = Paths.get(filePathProducts);
         if (!Files.exists(path)) {
@@ -32,6 +33,7 @@ public class FileUtil {
         }
         return defaultProducts;
     }
+
     private static Product parseProductFromCSV(String str){
         try {
             String[] params = str.split(separator);
@@ -48,6 +50,7 @@ public class FileUtil {
         }
         return null;
     }
+
     public static void saveProducts(Product[] products) {
         try (Writer writer = new FileWriter(filePathProducts);
                 BufferedWriter bufWriter = new BufferedWriter(writer)){
@@ -63,6 +66,7 @@ public class FileUtil {
             System.out.println("Не удалось сохранить данные в файл "+e);
         }
     }
+
     public static LogEntry[] readLogs(){
         Path path = Paths.get(filePathLogs);
         if (!Files.exists(path)){
@@ -80,6 +84,7 @@ public class FileUtil {
         }
         return new LogEntry[0];
     }
+
     private static LogEntry parseLogEntryFromCSV(String str){
         try {
             String[] params = str.split(separator);
@@ -95,6 +100,7 @@ public class FileUtil {
         }
         return null;
     }
+
     public static void saveLogs(LogEntry[] logs){
         try(Writer writer = new FileWriter(filePathLogs);
             BufferedWriter bufferedWriter = new BufferedWriter(writer)){
