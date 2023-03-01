@@ -12,6 +12,6 @@ public class PairUtil {
     public static void swap(Pair p){
         Object temp = p.first;
         p.first = p.second;
-        p.second = p.first;
+        p.second = temp;
     }
 }
