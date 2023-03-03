@@ -28,4 +28,9 @@ public class Employee{
     public Employee(String firstName, String lastName, int id, Position position, BigDecimal salary) {
         this(firstName,lastName,id,position,LocalDate.now(),salary,null);
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%s %s, %s, Отдел: %s, Должность: %s, ЗП: %s)", lastName,firstName, id, position.getDepartment(), position.getName(), salary);
+    }
 }
