@@ -6,7 +6,7 @@ import employeeManager.positions.Position;
 import java.math.BigDecimal;
 
 public class HeadOfHR extends Position {
-    public HeadOfHR(String name, BigDecimal minSalary, BigDecimal maxSalary) {
-        super(name, Department.HR, minSalary, maxSalary);
+    public HeadOfHR() {
+        super("Главный HR", Department.HR, new BigDecimal(800), new BigDecimal(1700));
     }
 }

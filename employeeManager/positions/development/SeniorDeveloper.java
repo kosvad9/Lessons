@@ -6,7 +6,7 @@ import employeeManager.positions.Position;
 import java.math.BigDecimal;
 
 public class SeniorDeveloper extends Position {
-    public SeniorDeveloper(String name, BigDecimal minSalary, BigDecimal maxSalary) {
-        super(name, Department.DEVELOPMENT, minSalary, maxSalary);
+    public SeniorDeveloper() {
+        super("Senior разработчик", Department.DEVELOPMENT, new BigDecimal(1800), new BigDecimal(4000));
     }
 }

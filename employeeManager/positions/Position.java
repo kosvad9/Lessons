@@ -5,10 +5,10 @@ import employeeManager.Department;
 import java.math.BigDecimal;
 
 public abstract class Position implements employeeManager.Position {
-    protected String name;
-    protected Department department;
-    protected BigDecimal minSalary;
-    protected BigDecimal maxSalary;
+    final protected String name;
+    final protected Department department;
+    final protected BigDecimal minSalary;
+    final protected BigDecimal maxSalary;
 
     protected Position(String name, Department department, BigDecimal minSalary, BigDecimal maxSalary){
         this.name = name;
