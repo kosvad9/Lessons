@@ -5,8 +5,8 @@ import employeeManager.positions.Position;
 
 import java.math.BigDecimal;
 
-public class seniorDeveloper extends Position {
-    public seniorDeveloper(String name, BigDecimal minSalary, BigDecimal maxSalary) {
+public class JuniorDeveloper extends Position {
+    public JuniorDeveloper(String name, BigDecimal minSalary, BigDecimal maxSalary) {
         super(name, Department.DEVELOPMENT, minSalary, maxSalary);
     }
 }
