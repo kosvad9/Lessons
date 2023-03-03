@@ -1,10 +1,11 @@
 package employeeManager.positions;
 
 import employeeManager.Department;
+import employeeManager.Position;
 
 import java.math.BigDecimal;
 
-public abstract class AbstractPosition implements employeeManager.Position {
+public abstract class AbstractPosition implements Position {
     final protected String name;
     final protected Department department;
     final protected BigDecimal minSalary;
