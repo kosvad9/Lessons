@@ -20,7 +20,7 @@ public class EmployeeManager {
         try {
             em.staff.add(new Employee("Вадим", "Космачёв", 1, new TeamLead(), new BigDecimal(7000)));
             em.staff.add(new Employee("Иван", "Сидоренко", 2, new MiddleDeveloper(), new BigDecimal(1600)));
-            em.staff.add(new Employee("Екатерина", "Петрова", 3, new Manager(), new BigDecimal(801)));
+            em.staff.add(new Employee("Екатерина", "Петрова", 3, new Manager(), new BigDecimal(790)));
 
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
