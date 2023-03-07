@@ -14,8 +14,9 @@ public class FileManager {
     }
 
     public static void removeEmployee(Employee employee){
-
+        staff.remove(employee);
     }
+
     public static void fillStaff(){
         try {
             FileManager.staff.add(new Employee("Вадим", "Космачёв", 1, DevelopmentPositions.TEAMLEAD.getPosition(), new BigDecimal(7000)));

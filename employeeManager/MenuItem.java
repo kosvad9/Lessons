@@ -1,9 +1,10 @@
 package employeeManager;
 
 public enum MenuItem {
-    PRINTSTAFF("Распечатать список сотрудников"), EXIT("Выход");
+    PRINT_STAFF("Распечатать список сотрудников"), CREATE_EMPLOYEE("Добавить сотрудника"),
+    REMOVE_EMPLOYEE("Уволить сотрудника"), CHANGE_DEPT("Изменить отдел"), EXIT("Выход");
 
-    private String name;
+    private final String name;
 
     MenuItem(String name) {
         this.name = name;

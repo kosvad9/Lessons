@@ -31,6 +31,15 @@ public class Employee{
 
     @Override
     public String toString() {
-        return String.format("(%s %s, %s, Отдел: %s, Должность: %s, ЗП: %s)", lastName,firstName, id, position.getDepartment(), position.getName(), salary);
+        return String.format("%s %s, id: %s, Отдел: %s, Должность: %s, ЗП: %s, Дата устройства: %s", lastName,firstName, id, position.getDepartment(), position.getName(), salary, dateOfEmployment);
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+        this.salary = position.getMinSalary();
     }
 }
