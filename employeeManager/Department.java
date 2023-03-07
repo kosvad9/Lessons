@@ -1,6 +1,6 @@
 package employeeManager;
 
-public enum Department {
+public enum Department{
     MARKETING("Marketing"), HR("Human Resources"), DEVELOPMENT("Development");
 
     private String name;

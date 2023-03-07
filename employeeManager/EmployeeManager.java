@@ -1,33 +1,23 @@
 package employeeManager;
 
-import employeeManager.positions.development.MiddleDeveloper;
-import employeeManager.positions.development.TeamLead;
-import employeeManager.positions.hr.Manager;
+import employeeManager.positions.development.DevelopmentPositions;
+import employeeManager.positions.hr.HrPositions;
+import employeeManager.positions.marketing.MarketingPositions;
 
 import java.math.BigDecimal;
-import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeeManager {
 
-    List<Employee> staff;
+
     public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         EmployeeManager em = new EmployeeManager();
-        em.staff = new LinkedList<>();
-        try {
-            em.staff.add(new Employee("Вадим", "Космачёв", 1, new TeamLead(), new BigDecimal(7000)));
-            em.staff.add(new Employee("Иван", "Сидоренко", 2, new MiddleDeveloper(), new BigDecimal(1600)));
-            em.staff.add(new Employee("Екатерина", "Петрова", 3, new Manager(), new BigDecimal(790)));
-
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
+        FileManager.fillStaff();
         while(true){
-            switch(em.printMenu()){
-                case PRINTSTAFF -> System.out.println(em.staff);
+            System.out.println("Выберите пункт меню:");
+            switch((MenuItem)(em.choiceEnum(MenuItem.values()))){
+                case PRINTSTAFF -> System.out.println(FileManager.staff);
                 case EXIT -> {
                     return;
                 }
@@ -35,28 +25,51 @@ public class EmployeeManager {
         }
     }
 
-    public MenuItem printMenu(){
-        MenuItem[] mi = MenuItem.values();
-        System.out.println("Выберите действие:");
-        for (int i = 0; i < mi.length; i++){
-            System.out.printf("\t%d. %s;\n",i,mi[i].toString());
+    private void printEnums(Enum<?>[] enums){
+        for (int i = 0; i < enums.length; i++){
+            System.out.printf("\t%d. %s;\n",i,enums[i].toString());
         }
-        return choiceMenu();
     }
 
-    private MenuItem choiceMenu(){
+    public Enum<?> choiceEnum(Enum<?>[] enums){
+        printEnums(enums);
         while(true){
             try{
-                MenuItem choiceItem = MenuItem.values()[sc.nextInt()];
-                return choiceItem;
+                return enums[sc.nextInt()];
             }catch (ArrayIndexOutOfBoundsException e){
-                System.out.println("Выбран несуществующий пункт меню! Повторите попытку.");
+                System.out.println("Выбран неверный индекс! Повторите попытку.");
             }catch (InputMismatchException e){
                 System.out.println("Введены некорректные данные! Повторите попытку.");
                 sc.nextLine();
             }catch (Exception e){
                 System.out.println("Возникла ошибка "+e);
             }
+        }
+    }
+
+    private void createEmployee(){
+        try{
+            System.out.print("Введите имя: ");
+            String firstname = sc.nextLine();
+            System.out.print("Введите фамилию: ");
+            String lastname = sc.nextLine();
+            System.out.println("Выберите отдел:");
+            Department department = (Department) choiceEnum(Department.values());
+            Position position = switch (department){
+                case MARKETING -> ((MarketingPositions) choiceEnum(MarketingPositions.values())).getPosition() ;
+                case HR -> ((HrPositions) choiceEnum(HrPositions.values())).getPosition();
+                case DEVELOPMENT -> ((DevelopmentPositions) choiceEnum(DevelopmentPositions.values())).getPosition();
+            };
+            System.out.printf("Введите размер ЗП (мин = %s, макс = %s)\n",position.getMinSalary(),position.getMaxSalary());
+            BigDecimal salary = sc.nextBigDecimal();
+            FileManager.addEmployee(new Employee(firstname,lastname,FileManager.getNextStaffID(),position,salary));
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Выбран неверный индекс! Повторите попытку.");
+        }catch (InputMismatchException e){
+            System.out.println("Введены некорректные данные! Повторите попытку.");
+            sc.nextLine();
+        }catch (Exception e){
+            System.out.println("Возникла ошибка "+e);
         }
     }
 }

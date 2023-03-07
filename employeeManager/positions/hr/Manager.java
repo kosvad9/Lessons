@@ -5,7 +5,7 @@ import employeeManager.positions.AbstractPosition;
 
 import java.math.BigDecimal;
 
-public class Manager extends AbstractPosition {
+class Manager extends AbstractPosition {
     public Manager() {
         super("Менеджер", Department.HR, new BigDecimal(400), new BigDecimal(800));
     }
