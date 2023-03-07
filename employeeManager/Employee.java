@@ -31,7 +31,7 @@ public class Employee{
 
     @Override
     public String toString() {
-        return String.format("%s %s, id: %s, Отдел: %s, Должность: %s, ЗП: %s, Дата устройства: %s", lastName,firstName, id, position.getDepartment(), position.getName(), salary, dateOfEmployment);
+        return String.format("%-10s %-10s, id: %-3s, \tОтдел: %-20s, \tДолжность: %-20s, \tЗП: %-6s, \tДата устройства: %-10s", lastName,firstName, id, position.getDepartment(), position.getName(), salary, dateOfEmployment);
     }
 
     public Position getPosition() {
