@@ -2,6 +2,7 @@ package employeeManager.positions.development;
 
 import employeeManager.Position;
 import employeeManager.positions.AbstractPosition;
+import employeeManager.positions.hr.HrPositions;
 
 public enum DevelopmentPositions {
     JUNIOR(new JuniorDeveloper()), MIDDLE(new MiddleDeveloper()), SENIOR(new SeniorDeveloper()), TEAMLEAD(new TeamLead());
@@ -19,5 +20,21 @@ public enum DevelopmentPositions {
 
     public Position getPosition(){
         return position;
+    }
+
+    public static Position getNextPosition(Position pos){
+        DevelopmentPositions[] positions = DevelopmentPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i < positions.length-1) return positions[++i].getPosition();
+        return null;
+    }
+
+    public static Position getPrevPosition(Position pos){
+        DevelopmentPositions[] positions = DevelopmentPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i > 0) return positions[--i].getPosition();
+        return null;
     }
 }

@@ -2,9 +2,10 @@ package employeeManager.positions.marketing;
 
 import employeeManager.Position;
 import employeeManager.positions.AbstractPosition;
+import employeeManager.positions.hr.HrPositions;
 
 public enum MarketingPositions {
-    HEAD(new HeadOfMarketing()), SPECIALIST(new Specialist()), TRAINEE(new Trainee());
+    TRAINEE(new Trainee()), SPECIALIST(new Specialist()), HEAD(new HeadOfMarketing());
 
     private Position position;
 
@@ -19,5 +20,21 @@ public enum MarketingPositions {
 
     public Position getPosition(){
         return position;
+    }
+
+    public static Position getNextPosition(Position pos){
+        MarketingPositions[] positions = MarketingPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i < positions.length-1) return positions[++i].getPosition();
+        return null;
+    }
+
+    public static Position getPrevPosition(Position pos){
+        MarketingPositions[] positions = MarketingPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i > 0) return positions[--i].getPosition();
+        return null;
     }
 }

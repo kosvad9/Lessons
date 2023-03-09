@@ -4,7 +4,7 @@ import employeeManager.Position;
 import employeeManager.positions.AbstractPosition;
 
 public enum HrPositions {
-    HEAD(new HeadOfHR()), MANAGER(new Manager()), SENIOR(new SeniorManager());
+    MANAGER(new Manager()), SENIOR(new SeniorManager()), HEAD(new HeadOfHR());
 
     private Position position;
 
@@ -19,5 +19,21 @@ public enum HrPositions {
 
     public Position getPosition(){
         return position;
+    }
+
+    public static Position getNextPosition(Position pos){
+        HrPositions[] positions = HrPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i < positions.length-1) return positions[++i].getPosition();
+        return null;
+    }
+
+    public static Position getPrevPosition(Position pos){
+        HrPositions[] positions = HrPositions.values();
+        for (int i = 0; i < positions.length; i++)
+            if (positions[i].getPosition() == pos)
+                if (i > 0) return positions[--i].getPosition();
+        return null;
     }
 }

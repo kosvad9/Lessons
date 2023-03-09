@@ -42,4 +42,21 @@ public class Employee{
         this.position = position;
         this.salary = position.getMinSalary();
     }
+
+    public void setSalary(BigDecimal newSalary){
+        if (newSalary.compareTo(position.getMinSalary()) >= 0 &&
+                newSalary.compareTo(position.getMaxSalary()) <= 0){
+            salary = newSalary;
+            salaryRevisionDate = LocalDate.now();
+        }
+        else throw new IllegalArgumentException(String.format("Для работника \'%s %s\' указанная ЗП вне диапазона выбранной должности!",firstName,lastName));
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }
