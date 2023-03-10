@@ -53,6 +53,7 @@ public class DepartmentManager {
     private void setPositionAndSalary(Employee employee, Position position){
         try{
             employee.setPosition(position);
+            System.out.printf("Сотрудник назначен на должность: %s\n", position.getName());
             System.out.printf("Введите размер ЗП (мин = %s, макс = %s): ", position.getMinSalary(), position.getMaxSalary());
             accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
