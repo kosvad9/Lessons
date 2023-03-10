@@ -32,18 +32,7 @@ public class DepartmentManager {
             System.out.println("Сотрудник уже на самой высокой должности!");
             return;
         }
-        try{
-            employee.setPosition(newPosition);
-            System.out.print("Введите размер ЗП: ");
-            accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
-        }catch (IndexOutOfBoundsException e){
-            System.out.println("Выбран неверный индекс! Повторите попытку.");
-        }catch (InputMismatchException e){
-            System.out.println("Введены некорректные данные! Повторите попытку.");
-            EmployeeManager.sc.nextLine();
-        }catch (Exception e){
-            System.out.println("Возникла ошибка "+e);
-        }
+        setPositionAndSalary(employee,newPosition);
     }
 
     public void lowerPosition(Employee employee){
@@ -58,9 +47,13 @@ public class DepartmentManager {
             FileManager.removeEmployee(employee);
             return;
         }
+        setPositionAndSalary(employee,newPosition);
+    }
+
+    private void setPositionAndSalary(Employee employee, Position position){
         try{
-            employee.setPosition(newPosition);
-            System.out.print("Введите размер ЗП: ");
+            employee.setPosition(position);
+            System.out.printf("Введите размер ЗП (мин = %s, макс = %s): ", position.getMinSalary(), position.getMaxSalary());
             accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");

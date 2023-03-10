@@ -21,7 +21,7 @@ public class EmployeeManager {
         employeeManager.departmentManager = new DepartmentManager(employeeManager.accounting);
         FileManager.fillStaff();
         while(true){
-            System.out.println("Выберите пункт меню:");
+            System.out.println("\nВыберите пункт меню:");
             switch((MenuItem)(EnumUtil.choiceEnum(MenuItem.values()))){
                 case PRINT_STAFF -> employeeManager.printStaff();
                 case CREATE_EMPLOYEE -> employeeManager.createEmployee();
@@ -99,7 +99,8 @@ public class EmployeeManager {
         System.out.print("Выберите сотрудника, которому требуется изменить ЗП:");
         Employee emp = choiceEmployee();
         if (emp == null) return;
-        System.out.print("Введите размер новой ЗП: ");
+        System.out.printf("Введите размер новой ЗП (мин = %s, макс = %s): ", emp.getPosition().getMinSalary(),
+                                                                                emp.getPosition().getMaxSalary());
         try{
             accounting.changeSalary(emp,sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
