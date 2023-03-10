@@ -11,34 +11,30 @@ public class EmployeeManager {
 
 
     public static Scanner sc = new Scanner(System.in);
+
+    private DepartmentManager departmentManager;
+
+    private Accounting accounting;
     public static void main(String[] args) {
+        EmployeeManager employeeManager = new EmployeeManager();
+        employeeManager.accounting = new Accounting();
+        employeeManager.departmentManager = new DepartmentManager(employeeManager.accounting);
         FileManager.fillStaff();
         while(true){
             System.out.println("Выберите пункт меню:");
             switch((MenuItem)(EnumUtil.choiceEnum(MenuItem.values()))){
-                case PRINT_STAFF -> printStaff();
-                case CREATE_EMPLOYEE -> createEmployee();
-                case REMOVE_EMPLOYEE -> removeEmployee();
-                case CHANGE_DEPT -> {
-                    Employee employee = choiceEmployee();
-                    if (employee != null)
-                        DepartmentManager.changeDepartment(employee);
-                }
-                case CHANGE_SALARY -> changeSalary();
-                case RAISE_POS -> raiseEmployee();
-                case LOWER_POS -> lowerEmployee();
+                case PRINT_STAFF -> employeeManager.printStaff();
+                case CREATE_EMPLOYEE -> employeeManager.createEmployee();
+                case REMOVE_EMPLOYEE -> employeeManager.removeEmployee();
+                case CHANGE_DEPT -> employeeManager.changeDept();
+                case CHANGE_SALARY -> employeeManager.changeSalary();
+                case RAISE_POS -> employeeManager.raiseEmployee();
+                case LOWER_POS -> employeeManager.lowerEmployee();
                 case EXIT -> {
                     return;
                 }
             }
         }
-    }
-
-    public static void printStaff(){
-        System.out.println("Список сотрудников.");
-        for (int i = 0; i < FileManager.staff.size(); i++)
-            System.out.printf("%d. %s\n",i,FileManager.staff.get(i));
-        System.out.println();
     }
 
     public static Position definePositionFromDept(Department department){
@@ -48,7 +44,15 @@ public class EmployeeManager {
             case DEVELOPMENT -> ((DevelopmentPositions) EnumUtil.choiceEnum(DevelopmentPositions.values())).getPosition();
         };
     }
-    private static void createEmployee(){
+
+    private void printStaff(){
+        System.out.println("Список сотрудников.");
+        for (int i = 0; i < FileManager.staff.size(); i++)
+            System.out.printf("%d. %s\n",i,FileManager.staff.get(i));
+        System.out.println();
+    }
+
+    private void createEmployee(){
         try{
             sc.nextLine();
             System.out.print("Введите имя: ");
@@ -71,7 +75,25 @@ public class EmployeeManager {
         }
     }
 
-    public static void changeSalary(){
+    private void removeEmployee(){
+        sc.nextLine();
+        printStaff();
+        System.out.print("Выберите сотрудника, которого надо уволить: ");
+        Employee emp = choiceEmployee();
+        if (emp == null) return;
+        FileManager.removeEmployee(emp);
+    }
+
+    private void changeDept(){
+        sc.nextLine();
+        printStaff();
+        System.out.print("Выберите сотрудника, которого надо понизить: ");
+        Employee employee = choiceEmployee();
+        if (employee != null)
+            departmentManager.changeDepartment(employee);
+    }
+
+    private void changeSalary(){
         sc.nextLine();
         printStaff();
         System.out.print("Выберите сотрудника, которому требуется изменить ЗП:");
@@ -79,7 +101,7 @@ public class EmployeeManager {
         if (emp == null) return;
         System.out.print("Введите размер новой ЗП: ");
         try{
-            Accounting.changeSalary(emp,sc.nextBigDecimal());
+            accounting.changeSalary(emp,sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){
@@ -90,34 +112,25 @@ public class EmployeeManager {
         }
     }
 
-    private static void removeEmployee(){
-        sc.nextLine();
-        printStaff();
-        System.out.print("Выберите сотрудника, которого надо уволить: ");
-        Employee emp = choiceEmployee();
-        if (emp == null) return;
-        FileManager.removeEmployee(emp);
-    }
-
-    private static void raiseEmployee(){
+    private void raiseEmployee(){
         sc.nextLine();
         printStaff();
         System.out.print("Выберите сотрудника, которого надо повысить: ");
         Employee emp = choiceEmployee();
         if (emp == null) return;
-        DepartmentManager.raisePosition(emp);
+        departmentManager.raisePosition(emp);
     }
 
-    private static void lowerEmployee(){
+    private void lowerEmployee(){
         sc.nextLine();
         printStaff();
         System.out.print("Выберите сотрудника, которого надо понизить: ");
         Employee emp = choiceEmployee();
         if (emp == null) return;
-        DepartmentManager.lowerPosition(emp);
+        departmentManager.lowerPosition(emp);
     }
 
-    public static Employee choiceEmployee(){
+    private Employee choiceEmployee(){
         try{
             return FileManager.staff.get(sc.nextInt());
         }catch (IndexOutOfBoundsException e){

@@ -7,14 +7,21 @@ import employeeManager.positions.marketing.MarketingPositions;
 import java.util.InputMismatchException;
 
 public class DepartmentManager {
-    public static void changeDepartment(Employee employee){
+
+    private Accounting accounting;
+
+    public DepartmentManager(Accounting accounting){
+        this.accounting = accounting == null ? new Accounting() : accounting;
+    }
+
+    public void changeDepartment(Employee employee){
         System.out.println("Выберите отдел:");
-        Department department = (Department) EnumUtil.choiceEnum(Department.getDeptExceptCurr(employee.getPosition().getDepartment()));
+        Department department = (Department) EnumUtil.choiceEnum(employee.getPosition().getDepartment().getDeptExceptCurr());
         Position position = EmployeeManager.definePositionFromDept(department);
         employee.setPosition(position);
     }
 
-    public static void raisePosition(Employee employee){
+    public void raisePosition(Employee employee){
         Department department = employee.getPosition().getDepartment();
         Position newPosition = switch (department){
             case HR -> HrPositions.getNextPosition(employee.getPosition());
@@ -28,7 +35,7 @@ public class DepartmentManager {
         try{
             employee.setPosition(newPosition);
             System.out.print("Введите размер ЗП: ");
-            Accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
+            accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){
@@ -39,7 +46,7 @@ public class DepartmentManager {
         }
     }
 
-    public static void lowerPosition(Employee employee){
+    public void lowerPosition(Employee employee){
         Department department = employee.getPosition().getDepartment();
         Position newPosition = switch (department){
             case HR -> HrPositions.getPrevPosition(employee.getPosition());
@@ -54,7 +61,7 @@ public class DepartmentManager {
         try{
             employee.setPosition(newPosition);
             System.out.print("Введите размер ЗП: ");
-            Accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
+            accounting.changeSalary(employee,EmployeeManager.sc.nextBigDecimal());
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){

@@ -44,12 +44,8 @@ public class Employee{
     }
 
     public void setSalary(BigDecimal newSalary){
-        if (newSalary.compareTo(position.getMinSalary()) >= 0 &&
-                newSalary.compareTo(position.getMaxSalary()) <= 0){
-            salary = newSalary;
-            salaryRevisionDate = LocalDate.now();
-        }
-        else throw new IllegalArgumentException(String.format("Для работника \'%s %s\' указанная ЗП вне диапазона выбранной должности!",firstName,lastName));
+        salary = newSalary;
+        salaryRevisionDate = LocalDate.now();
     }
 
     public String getFirstName() {
