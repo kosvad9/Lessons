@@ -2,12 +2,11 @@ package employeeManager.positions.marketing;
 
 import employeeManager.Position;
 import employeeManager.positions.AbstractPosition;
-import employeeManager.positions.hr.HrPositions;
 
 public enum MarketingPositions {
     TRAINEE(new Trainee()), SPECIALIST(new Specialist()), HEAD(new HeadOfMarketing());
 
-    private Position position;
+    private final Position position;
 
     MarketingPositions(AbstractPosition position){
         this.position = position;

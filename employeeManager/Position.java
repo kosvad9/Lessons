@@ -1,10 +1,11 @@
 package employeeManager;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public interface Position {
-    public String getName();
-    public Department getDepartment();
-    public BigDecimal getMinSalary();
-    public BigDecimal getMaxSalary();
+public interface Position extends Serializable {
+    String getName();
+    Department getDepartment();
+    BigDecimal getMinSalary();
+    BigDecimal getMaxSalary();
 }

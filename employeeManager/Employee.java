@@ -1,9 +1,10 @@
 package employeeManager;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Employee{
+public class Employee implements Serializable {
     private String firstName;
     private String lastName;
     private int id;

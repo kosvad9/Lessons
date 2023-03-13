@@ -10,8 +10,11 @@ public class DepartmentManager {
 
     private Accounting accounting;
 
-    public DepartmentManager(Accounting accounting){
+    private FileManager fileManager;
+
+    public DepartmentManager(Accounting accounting, FileManager fileManager){
         this.accounting = accounting == null ? new Accounting() : accounting;
+        this.fileManager = fileManager == null ? new FileManager() : fileManager;
     }
 
     public void changeDepartment(Employee employee){
@@ -44,7 +47,7 @@ public class DepartmentManager {
         };
         if (newPosition == null){
             System.out.println("Сотрудник на самой низкой должности, он будет уволен!");
-            FileManager.removeEmployee(employee);
+            fileManager.removeEmployee(employee);
             return;
         }
         setPositionAndSalary(employee,newPosition);

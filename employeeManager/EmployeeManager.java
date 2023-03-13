@@ -15,11 +15,13 @@ public class EmployeeManager {
     private DepartmentManager departmentManager;
 
     private Accounting accounting;
+
+    private FileManager fileManager;
     public static void main(String[] args) {
         EmployeeManager employeeManager = new EmployeeManager();
         employeeManager.accounting = new Accounting();
-        employeeManager.departmentManager = new DepartmentManager(employeeManager.accounting);
-        FileManager.fillStaff();
+        employeeManager.fileManager = new FileManager();
+        employeeManager.departmentManager = new DepartmentManager(employeeManager.accounting, employeeManager.fileManager);
         while(true){
             System.out.println("\nВыберите пункт меню:");
             switch((MenuItem)(EnumUtil.choiceEnum(MenuItem.values()))){
@@ -47,8 +49,8 @@ public class EmployeeManager {
 
     private void printStaff(){
         System.out.println("Список сотрудников.");
-        for (int i = 0; i < FileManager.staff.size(); i++)
-            System.out.printf("%d. %s\n",i,FileManager.staff.get(i));
+        for (int i = 0; i < fileManager.getStaff().size(); i++)
+            System.out.printf("%d. %s\n",i,fileManager.getStaff().get(i));
         System.out.println();
     }
 
@@ -64,7 +66,7 @@ public class EmployeeManager {
             Position position = definePositionFromDept(department);
             System.out.printf("Введите размер ЗП (мин = %s, макс = %s)\n",position.getMinSalary(),position.getMaxSalary());
             BigDecimal salary = sc.nextBigDecimal();
-            FileManager.addEmployee(new Employee(firstname,lastname,FileManager.getNextStaffID(),position,salary));
+            fileManager.addEmployee(new Employee(firstname,lastname,fileManager.getNextStaffID(),position,salary));
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){
@@ -81,7 +83,7 @@ public class EmployeeManager {
         System.out.print("Выберите сотрудника, которого надо уволить: ");
         Employee emp = choiceEmployee();
         if (emp == null) return;
-        FileManager.removeEmployee(emp);
+        fileManager.removeEmployee(emp);
     }
 
     private void changeDept(){
@@ -89,8 +91,9 @@ public class EmployeeManager {
         printStaff();
         System.out.print("Выберите сотрудника, которого надо понизить: ");
         Employee employee = choiceEmployee();
-        if (employee != null)
-            departmentManager.changeDepartment(employee);
+        if (employee == null) return;
+        departmentManager.changeDepartment(employee);
+        fileManager.writeEmployees();
     }
 
     private void changeSalary(){
@@ -103,6 +106,7 @@ public class EmployeeManager {
                                                                                 emp.getPosition().getMaxSalary());
         try{
             accounting.changeSalary(emp,sc.nextBigDecimal());
+            fileManager.writeEmployees();
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){
@@ -120,6 +124,7 @@ public class EmployeeManager {
         Employee emp = choiceEmployee();
         if (emp == null) return;
         departmentManager.raisePosition(emp);
+        fileManager.writeEmployees();
     }
 
     private void lowerEmployee(){
@@ -129,11 +134,12 @@ public class EmployeeManager {
         Employee emp = choiceEmployee();
         if (emp == null) return;
         departmentManager.lowerPosition(emp);
+        fileManager.writeEmployees();
     }
 
     private Employee choiceEmployee(){
         try{
-            return FileManager.staff.get(sc.nextInt());
+            return fileManager.getStaff().get(sc.nextInt());
         }catch (IndexOutOfBoundsException e){
             System.out.println("Выбран неверный индекс! Повторите попытку.");
         }catch (InputMismatchException e){

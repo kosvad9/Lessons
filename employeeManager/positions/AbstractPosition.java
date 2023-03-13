@@ -2,7 +2,6 @@ package employeeManager.positions;
 
 import employeeManager.Department;
 import employeeManager.Position;
-
 import java.math.BigDecimal;
 
 public abstract class AbstractPosition implements Position {

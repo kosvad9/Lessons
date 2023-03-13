@@ -2,12 +2,11 @@ package employeeManager.positions.development;
 
 import employeeManager.Position;
 import employeeManager.positions.AbstractPosition;
-import employeeManager.positions.hr.HrPositions;
 
 public enum DevelopmentPositions {
     JUNIOR(new JuniorDeveloper()), MIDDLE(new MiddleDeveloper()), SENIOR(new SeniorDeveloper()), TEAMLEAD(new TeamLead());
 
-    private Position position;
+    private final Position position;
 
     DevelopmentPositions(AbstractPosition position){
         this.position = position;
