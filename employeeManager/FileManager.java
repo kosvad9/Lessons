@@ -10,7 +10,7 @@ import java.util.List;
 public class FileManager {
     private List<Employee> staff = new LinkedList<>();
 
-    private final static String filePath = "employeeManager/employees.data";
+    private final String filePath = "employeeManager/employees.data";
 
     public FileManager(){
         readEmployees();
