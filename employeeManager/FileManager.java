@@ -10,7 +10,7 @@ import java.util.List;
 public class FileManager {
     private List<Employee> staff = new LinkedList<>();
 
-    private final static String filePath = "./employeeManager/employees.data";
+    private final static String filePath = "employeeManager/employees.data";
 
     public FileManager(){
         readEmployees();
@@ -21,7 +21,7 @@ public class FileManager {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             staff = (LinkedList<Employee>) objectInputStream.readObject();
         } catch (FileNotFoundException e){
-            System.out.println("Файл не найден "+e);
+            System.out.println("Файл не найден! Список сотрудников не будет загружен "+e);
         } catch (IOException e) {
             System.out.println("Неопознанная ошибка при чтении данных из файла "+e);
         } catch (ClassNotFoundException e) {
@@ -36,7 +36,7 @@ public class FileManager {
              ObjectOutputStream objectOutputStreamStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStreamStream.writeObject(staff);
         } catch (FileNotFoundException e){
-            System.out.println("Файл не найден и невозможно создать "+e);
+            System.out.println("Файл не найден и невозможно создать! Данные не будут сохранены "+e);
         } catch (IOException e) {
             System.out.println("Неопознанная ошибка при записи данных в файл "+e);
         }
